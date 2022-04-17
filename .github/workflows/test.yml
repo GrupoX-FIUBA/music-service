@@ -20,6 +20,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.dev.txt
       - name: Lint with flake8
-        run: flake8 --ignore=W191 app/
+        run: flake8 --ignore=E251 app/
       - name: Test
         run: pytest app/*
