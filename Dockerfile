@@ -6,6 +6,8 @@ COPY ./requirements.txt /code/requirements.txt
 COPY ./requirements.dev.txt /code/requirements.dev.txt
 COPY ./test.sh /code/test.sh
 
+RUN apk update && apk add postgresql-dev python3-dev musl-dev gcc
+
 RUN pip install --upgrade pip
 RUN pip install -r /code/requirements.txt
 

@@ -2,7 +2,7 @@
 
 echo -e "\033[0;34mRunning Flake8 Linter...\033[0m"
 
-FLAKE=`flake8 --ignore=W191 app/`
+FLAKE=`flake8 --ignore=E251 app/`
 FLAKE_CODE=`echo $?`
 
 if [ "$FLAKE_CODE" -ne "0" ]; then
