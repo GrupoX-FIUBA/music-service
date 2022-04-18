@@ -8,7 +8,12 @@ class SongBase(BaseModel):
 
 
 class SongCreate(SongBase):
-    pass
+    artist_id: int
+
+
+class SongUpdate(SongBase):
+    title: Optional[str]
+    album_id: Optional[int]
 
 
 class Song(SongBase):
@@ -25,7 +30,11 @@ class AlbumBase(BaseModel):
 
 
 class AlbumCreate(AlbumBase):
-    pass
+    artist_id: int
+
+
+class AlbumUpdate(AlbumBase):
+    title: Optional[str]
 
 
 class Album(AlbumBase):
@@ -42,7 +51,11 @@ class PlaylistBase(BaseModel):
 
 
 class PlaylistCreate(PlaylistBase):
-    pass
+    owner_id: int
+
+
+class PlaylistUpdate(PlaylistBase):
+    title: Optional[str]
 
 
 class Playlist(PlaylistBase):

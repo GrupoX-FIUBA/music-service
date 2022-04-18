@@ -43,6 +43,14 @@ def create_song(song: schemas.SongCreate,
                             artist_id = artist_id, album_id = album_id)
 
 
+@app.patch("/songs/{song_id}", response_model = schemas.Song)
+def edit_song(song_id: int, song: schemas.SongUpdate,
+              db: Session = Depends(get_db)):
+    db_song = get_song(song_id, db)
+
+    return crud.edit_song(db, song = db_song, updated_song = song)
+
+
 @app.delete("/songs/{song_id}", response_model = schemas.Song)
 def remove_song(song_id, db: Session = Depends(get_db)):
     song = crud.remove_song(db, song_id)
@@ -93,6 +101,14 @@ def remove_song_from_album(album_id: int, song_id: int,
 def create_album(album: schemas.AlbumCreate,
                  artist_id: int, db: Session = Depends(get_db)):
     return crud.create_album(db, album = album, artist_id = artist_id)
+
+
+@app.patch("/albums/{album_id}", response_model = schemas.Album)
+def edit_album(album_id: int, album: schemas.AlbumUpdate,
+               db: Session = Depends(get_db)):
+    db_album = get_album(album_id, db)
+
+    return crud.edit_album(db, album = db_album, updated_album = album)
 
 
 @app.delete("/albums/{album_id}", response_model = schemas.Album)
@@ -146,6 +162,14 @@ def remove_song_from_playlist(playlist_id: int, song_id: int,
 def create_playlist(playlist: schemas.PlaylistCreate,
                     owner_id: int, db: Session = Depends(get_db)):
     return crud.create_playlist(db, playlist = playlist, owner_id = owner_id)
+
+
+@app.patch("/playlist/{playlist_id}", response_model = schemas.Playlist)
+def edit_playlist(playlist_id: int, playlist: schemas.PlaylistUpdate,
+                  db: Session = Depends(get_db)):
+    db_playlist = get_playlist(playlist_id, db)
+
+    return crud.edit_playlist(db, playlist = db_playlist, updated_playlist = playlist)
 
 
 @app.delete("/playlists/{playlist_id}", response_model = schemas.Playlist)

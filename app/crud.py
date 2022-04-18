@@ -23,6 +23,16 @@ def create_song(db: Session, song: schemas.SongCreate,
     return db_song
 
 
+def edit_song(db: Session, song: schemas.Song,
+              updated_song: schemas.SongUpdate):
+    for key, value in updated_song.dict(exclude_unset = True).items():
+        setattr(song, key, value)
+
+    db.commit()
+    db.refresh(song)
+    return song
+
+
 def remove_song(db: Session, song_id: int):
     db_song = get_song(db, song_id)
     if db_song is None:
@@ -48,6 +58,16 @@ def create_album(db: Session, album: schemas.AlbumCreate, artist_id: int):
     db.commit()
     db.refresh(db_album)
     return db_album
+
+
+def edit_album(db: Session, album: schemas.Album,
+               updated_album: schemas.AlbumUpdate):
+    for key, value in updated_album.dict(exclude_unset = True).items():
+        setattr(album, key, value)
+
+    db.commit()
+    db.refresh(album)
+    return album
 
 
 def remove_album(db: Session, album_id: int):
@@ -96,6 +116,16 @@ def create_playlist(db: Session, playlist: schemas.PlaylistCreate,
     db.commit()
     db.refresh(db_playlist)
     return db_playlist
+
+
+def edit_playlist(db: Session, playlist: schemas.Playlist,
+                  updated_playlist: schemas.PlaylistUpdate):
+    for key, value in updated_playlist.dict(exclude_unset = True).items():
+        setattr(playlist, key, value)
+
+    db.commit()
+    db.refresh(playlist)
+    return playlist
 
 
 def remove_playlist(db: Session, playlist_id: int):
