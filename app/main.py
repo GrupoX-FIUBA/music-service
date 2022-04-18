@@ -169,7 +169,8 @@ def edit_playlist(playlist_id: int, playlist: schemas.PlaylistUpdate,
                   db: Session = Depends(get_db)):
     db_playlist = get_playlist(playlist_id, db)
 
-    return crud.edit_playlist(db, playlist = db_playlist, updated_playlist = playlist)
+    return crud.edit_playlist(db, playlist = db_playlist,
+                              updated_playlist = playlist)
 
 
 @app.delete("/playlists/{playlist_id}", response_model = schemas.Playlist)
