@@ -61,6 +61,25 @@ def remove_album(db: Session, album_id: int):
     return db_album
 
 
+def add_album_song(db: Session, song: schemas.Song, album: schemas.Album):
+    song.album_id = album.id
+    album.songs.append(song)
+    db.commit()
+    db.refresh(song)
+    db.refresh(album)
+    return song
+
+
+def remove_album_song(db: Session, song: schemas.Song, album: schemas.Album):
+    song.album_id = None
+    album.songs.remove(song)
+    db.commit()
+    db.refresh(song)
+    db.refresh(album)
+
+    return song
+
+
 def get_playlists(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Playlist).offset(skip).limit(limit).all()
 
@@ -90,3 +109,17 @@ def remove_playlist(db: Session, playlist_id: int):
     return db_playlist
 
 
+def add_playlist_song(db: Session, song: schemas.Song,
+                      playlist: schemas.Playlist):
+    playlist.songs.append(song)
+    db.commit()
+    db.refresh(playlist)
+    return song
+
+
+def remove_playlist_song(db: Session, song: schemas.Song,
+                         playlist: schemas.Playlist):
+    playlist.songs.remove(song)
+    db.commit()
+    db.refresh(playlist)
+    return song

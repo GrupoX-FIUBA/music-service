@@ -67,6 +67,28 @@ def get_album(album_id: int, db: Session = Depends(get_db)):
     return album
 
 
+@app.post("/albums/{album_id}/songs/{song_id}", response_model = schemas.Song)
+def add_song_to_album(album_id: int, song_id: int,
+                      db: Session = Depends(get_db)):
+    album = get_album(album_id, db)
+    song = get_song(song_id, db)
+
+    return crud.add_album_song(db, song = song, album = album)
+
+
+@app.delete("/albums/{album_id}/songs/{song_id}",
+            response_model = schemas.Song)
+def remove_song_from_album(album_id: int, song_id: int,
+                           db: Session = Depends(get_db)):
+    album = get_album(album_id, db)
+    song = get_song(song_id, db)
+
+    if song.album_id != album_id:
+        raise HTTPException(status_code = 404, detail = "Song not in album")
+
+    return crud.remove_album_song(db, album = album, song = song)
+
+
 @app.post("/albums/", response_model = schemas.Album)
 def create_album(album: schemas.AlbumCreate,
                  artist_id: int, db: Session = Depends(get_db)):
@@ -96,6 +118,28 @@ def get_playlist(playlist_id: int, db: Session = Depends(get_db)):
         return HTTPException(status_code = 404, detail = "Playlist not found")
 
     return playlist
+
+
+@app.post("/playlists/{playlist_id}/songs/{song_id}",
+          response_model = schemas.Song)
+def add_song_to_playlist(playlist_id: int, song_id: int,
+                         db: Session = Depends(get_db)):
+    playlist = get_playlist(playlist_id, db)
+    song = get_song(song_id, db)
+
+    return crud.add_playlist_song(db, song = song, playlist = playlist)
+
+
+@app.delete("/playlists/{playlist_id}/songs/{song_id}",
+            response_model = schemas.Song)
+def remove_song_from_playlist(playlist_id: int, song_id: int,
+                              db: Session = Depends(get_db)):
+    playlist = get_playlist(playlist_id, db)
+    song = get_song(song_id, db)
+    if song not in playlist.songs:
+        raise HTTPException(status_code = 404, detail = "Song not in playlist")
+
+    return crud.remove_playlist_song(db, song = song, playlist = playlist)
 
 
 @app.post("/playlists/", response_model = schemas.Playlist)
