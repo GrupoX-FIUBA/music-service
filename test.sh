@@ -15,7 +15,7 @@ fi
 
 echo -e "\n\033[0;34mRunning tests...\033[0m"
 
-PYTEST=`pytest --color=yes --no-header app/*`
+PYTEST=`pytest --color=yes --no-header app/tests/*`
 PYTEST_CODE=`echo $?`
 
 if [ "$PYTEST_CODE" -ne "0" ]; then
