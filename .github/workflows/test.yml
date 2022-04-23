@@ -22,4 +22,4 @@ jobs:
       - name: Lint with flake8
         run: flake8 --ignore=E251 app/
       - name: Test
-        run: pytest app/test/*
+        run: pytest app/tests/*
