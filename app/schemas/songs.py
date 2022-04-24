@@ -9,6 +9,7 @@ class SongBase(BaseModel):
 
 class SongCreate(SongBase):
     artist_id: int
+    album_id: Optional[int]
 
 
 class SongUpdate(SongBase):
