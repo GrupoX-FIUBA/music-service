@@ -12,12 +12,19 @@ Run `docker-compose up --build` to start the app in port 8000 or `PORT=xxxx dock
 
 ### With _virtualenv_
 
+#### Run the server
+
 - First of all create a _virtualenv_ (_i.e._ `python3 -m venv venv`) and activate it (`source venv/bin/activate`).
 - Upgrade pip and install the dependencies: `pip install --upgrade pip && pip install -r requirements.txt`.
+- Update the database structure: `alembic upgrade head`.
 - Run the app with:
 	```bash
 	uvicorn app.main:app --host 0.0.0.0 --port 8000
 	```
+
+#### Changes to database models
+
+To create database migrations for changes done in _models_ files, run `alembic revision --autogenerate -m "Title of migration"`. Then, update the database with `alembic upgrade head`.
 
 ## Tests
 

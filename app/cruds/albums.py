@@ -14,7 +14,7 @@ def get_album(db: Session, album_id: int):
 
 
 def create_album(db: Session, album: schemas.AlbumCreate):
-    db_album = models.Album(**album.dict())
+    db_album = models.Album(**album.dict(), blocked = False)
     db.add(db_album)
     db.commit()
     db.refresh(db_album)

@@ -13,7 +13,7 @@ def get_song(db: Session, song_id: int):
 
 
 def create_song(db: Session, song: schemas.SongCreate):
-    db_song = models.Song(**song.dict())
+    db_song = models.Song(**song.dict(), blocked = False)
     db.add(db_song)
     db.commit()
     db.refresh(db_song)
