@@ -22,7 +22,7 @@ router = APIRouter(
 
 
 @router.get("/", response_model = list[schemas.Playlist])
-def get_playlists(skip: int = 0, limit: int = 0,
+def get_playlists(skip: int = 0, limit: int = 100,
                   db: Session = Depends(get_db)):
     playlists = crud.get_playlists(db, skip = skip, limit = limit)
     return playlists
@@ -59,8 +59,8 @@ def remove_song_from_playlist(playlist_id: int, song_id: int,
 
 @router.post("/", response_model = schemas.Playlist)
 def create_playlist(playlist: schemas.PlaylistCreate,
-                    owner_id: int, db: Session = Depends(get_db)):
-    return crud.create_playlist(db, playlist = playlist, owner_id = owner_id)
+                    db: Session = Depends(get_db)):
+    return crud.create_playlist(db, playlist = playlist)
 
 
 @router.patch("/{playlist_id}", response_model = schemas.Playlist)

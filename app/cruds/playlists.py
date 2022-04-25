@@ -1,5 +1,3 @@
-from typing import Optional
-
 from sqlalchemy.orm import Session
 
 from app.models import playlists as models
@@ -16,9 +14,8 @@ def get_playlist(db: Session, playlist_id: int):
              .filter(models.Playlist.id == playlist_id).first()
 
 
-def create_playlist(db: Session, playlist: schemas.PlaylistCreate,
-                    owner_id: Optional[int] = None):
-    db_playlist = models.Playlist(**playlist, owner_id = owner_id)
+def create_playlist(db: Session, playlist: schemas.PlaylistCreate):
+    db_playlist = models.Playlist(**playlist.dict())
     db.add(db_playlist)
     db.commit()
     db.refresh(db_playlist)

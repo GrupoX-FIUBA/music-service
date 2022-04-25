@@ -20,6 +20,7 @@ class AlbumUpdate(AlbumBase):
 class Album(AlbumBase):
     id: int
     artist_id: int
+    blocked: bool
     songs: list[Song] = []
 
     class Config:

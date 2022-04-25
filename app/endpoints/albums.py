@@ -59,9 +59,8 @@ def remove_song_from_album(album_id: int, song_id: int,
 
 
 @router.post("/", response_model = schemas.Album)
-def create_album(album: schemas.AlbumCreate,
-                 artist_id: int, db: Session = Depends(get_db)):
-    return crud.create_album(db, album = album, artist_id = artist_id)
+def create_album(album: schemas.AlbumCreate, db: Session = Depends(get_db)):
+    return crud.create_album(db, album = album)
 
 
 @router.patch("/{album_id}", response_model = schemas.Album)

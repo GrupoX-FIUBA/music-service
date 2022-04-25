@@ -1,5 +1,3 @@
-from typing import Optional
-
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
@@ -38,12 +36,8 @@ def get_song(song_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/", response_model = schemas.Song)
-def create_song(song: schemas.SongCreate,
-                artist_id: int,
-                album_id: Optional[int] = None,
-                db: Session = Depends(get_db)):
-    return crud.create_song(db, song = song,
-                            artist_id = artist_id, album_id = album_id)
+def create_song(song: schemas.SongCreate, db: Session = Depends(get_db)):
+    return crud.create_song(db, song = song)
 
 
 @router.patch("/{song_id}", response_model = schemas.Song)

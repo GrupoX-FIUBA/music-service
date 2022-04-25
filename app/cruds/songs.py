@@ -1,5 +1,3 @@
-from typing import Optional
-
 from sqlalchemy.orm import Session
 
 from app.models import songs as models
@@ -14,10 +12,8 @@ def get_song(db: Session, song_id: int):
     return db.query(models.Song).filter(models.Song.id == song_id).first()
 
 
-def create_song(db: Session, song: schemas.SongCreate,
-                artist_id: int, album_id: Optional[int] = None):
-    db_song = models.Song(**song.dict(),
-                          artist_id = artist_id, album_id = album_id)
+def create_song(db: Session, song: schemas.SongCreate):
+    db_song = models.Song(**song.dict(), blocked = False)
     db.add(db_song)
     db.commit()
     db.refresh(db_song)

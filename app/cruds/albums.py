@@ -13,8 +13,8 @@ def get_album(db: Session, album_id: int):
     return db.query(models.Album).filter(models.Album.id == album_id).first()
 
 
-def create_album(db: Session, album: schemas.AlbumCreate, artist_id: int):
-    db_album = models.Album(**album.dict(), artist_id = artist_id)
+def create_album(db: Session, album: schemas.AlbumCreate):
+    db_album = models.Album(**album.dict(), blocked = False)
     db.add(db_album)
     db.commit()
     db.refresh(db_album)

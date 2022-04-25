@@ -5,6 +5,8 @@ WORKDIR /code
 COPY ./requirements.txt /code/requirements.txt
 COPY ./requirements.dev.txt /code/requirements.dev.txt
 COPY ./test.sh /code/test.sh
+COPY ./alembic.ini /code/alembic.ini
+COPY ./alembic /code/alembic
 
 RUN apk update && apk add postgresql-dev python3-dev musl-dev gcc
 
@@ -15,5 +17,7 @@ COPY ./app /code/app
 
 # ENV PORT=8000
 # EXPOSE $PORT
+
+RUN alembic upgrade head
 
 CMD uvicorn app.main:app --host 0.0.0.0 --port $PORT
