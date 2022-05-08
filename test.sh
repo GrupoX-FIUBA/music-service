@@ -1,5 +1,7 @@
 #!/bin/sh
 
+alembic upgrade head
+
 echo -e "\033[0;34mRunning Flake8 Linter...\033[0m"
 
 FLAKE=`flake8 --ignore=E251 app/`
