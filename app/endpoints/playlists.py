@@ -2,17 +2,9 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.cruds import playlists as crud
-from app.db.session import SessionLocal
 from app.schemas import playlists as schemas
+from .base import get_db
 from .songs import get_song
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 router = APIRouter(
