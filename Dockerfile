@@ -23,7 +23,7 @@ CMD sh test.sh
 
 
 # Dev stage
-FROM test as development
+FROM base as development
 
 COPY ./start.sh ./start.sh
 
