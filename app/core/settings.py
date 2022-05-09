@@ -1,4 +1,4 @@
 import os
 
-DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:///./db.sqlite3")\
-                         .replace("postgres://", "postgresql://", 1)
+DATABASE_URL = os.environ["DATABASE_URL"].replace("postgres://",
+                                                  "postgresql://", 1)

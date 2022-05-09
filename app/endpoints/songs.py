@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.cruds import songs as crud
-from app.database import SessionLocal
+from app.db.session import SessionLocal
 from app.schemas import songs as schemas
 
 
