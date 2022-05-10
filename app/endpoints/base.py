@@ -1,4 +1,4 @@
-from fastapi import Security, HTTPException
+from fastapi import Security, HTTPException, status
 from fastapi.security.api_key import APIKeyQuery, APIKeyCookie, APIKeyHeader
 
 from app.db.session import SessionLocal
@@ -30,4 +30,5 @@ def get_api_key(
     elif api_key_cookie == API_KEY:
         return api_key_cookie
 
-    raise HTTPException(status_code = 301, detail = "Permission denied")
+    raise HTTPException(status_code = status.HTTP_401_UNAUTHORIZED,
+                        detail = "Permission denied")
