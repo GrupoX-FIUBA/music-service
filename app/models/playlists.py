@@ -1,4 +1,5 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Table, Text
+from sqlalchemy import Boolean, Column, ForeignKey,\
+    Integer, String, Table, Text
 from sqlalchemy.orm import relationship
 
 from app.db.base_class import Base

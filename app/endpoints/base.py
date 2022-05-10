@@ -1,16 +1,14 @@
-import os
-
 from fastapi import Security, HTTPException
 from fastapi.security.api_key import APIKeyQuery, APIKeyCookie, APIKeyHeader
 
 from app.db.session import SessionLocal
+from app.core.settings import API_KEY_NAME, API_KEY
 
-API_KEY_NAME = "X-API-Key"
-API_KEY = os.environ.get("X-API-Key", "prueba")
 
 api_key_query = APIKeyQuery(name = API_KEY_NAME, auto_error = False)
 api_key_header = APIKeyHeader(name = API_KEY_NAME, auto_error = False)
 api_key_cookie = APIKeyCookie(name = API_KEY_NAME, auto_error = False)
+
 
 def get_db():
     db = SessionLocal()
@@ -32,4 +30,4 @@ def get_api_key(
     elif api_key_cookie == API_KEY:
         return api_key_cookie
 
-    raise HTTPException(status_code = 403, detail = "Permission denied")
+    raise HTTPException(status_code = 301, detail = "Permission denied")

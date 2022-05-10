@@ -3,10 +3,7 @@ from sqlalchemy.orm import Session
 
 from app.cruds import genres as crud
 from app.schemas import genres as schemas
-from app.schemas.songs import Song
-from app.schemas.albums import Album
 from .base import get_db
-from .songs import get_song
 
 
 router = APIRouter(
