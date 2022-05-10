@@ -30,7 +30,7 @@ def get_genre(genre_id: int, db: Session = Depends(get_db)):
     return genre
 
 
-@router.post("/", response_model = schemas.Genre)
+@router.post("/", response_model = schemas.Genre, status_code = 201)
 def create_genre(genre: schemas.GenreCreate, db: Session = Depends(get_db)):
     return crud.create_genre(db, genre = genre)
 
@@ -40,10 +40,10 @@ def edit_genre(genre_id: int, genre: schemas.GenreUpdate,
                db: Session = Depends(get_db)):
     db_genre = get_genre(genre_id, db)
 
-    return crud.edit_album(db, genre = db_genre, updated_genre = genre)
+    return crud.edit_genre(db, genre = db_genre, updated_genre = genre)
 
 
-@router.delete("/{album_id}", response_model = schemas.Genre)
+@router.delete("/{genre_id}", response_model = schemas.Genre)
 def remove_genre(genre_id: int, db: Session = Depends(get_db)):
     genre = crud.remove_genre(db, genre_id)
     if genre is None:

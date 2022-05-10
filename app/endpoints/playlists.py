@@ -49,7 +49,7 @@ def remove_song_from_playlist(playlist_id: int, song_id: int,
     return crud.remove_playlist_song(db, song = song, playlist = playlist)
 
 
-@router.post("/", response_model = schemas.Playlist)
+@router.post("/", response_model = schemas.Playlist, status_code = 201)
 def create_playlist(playlist: schemas.PlaylistCreate,
                     db: Session = Depends(get_db)):
     return crud.create_playlist(db, playlist = playlist)

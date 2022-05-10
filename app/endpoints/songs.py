@@ -27,7 +27,7 @@ def get_song(song_id: int, db: Session = Depends(get_db)):
     return song
 
 
-@router.post("/", response_model = schemas.Song)
+@router.post("/", response_model = schemas.Song, status_code = 201)
 def create_song(song: schemas.SongCreate, db: Session = Depends(get_db)):
     return crud.create_song(db, song = song)
 

@@ -50,7 +50,7 @@ def remove_song_from_album(album_id: int, song_id: int,
     return crud.remove_album_song(db, album = album, song = song)
 
 
-@router.post("/", response_model = schemas.Album)
+@router.post("/", response_model = schemas.Album, status_code = 201)
 def create_album(album: schemas.AlbumCreate, db: Session = Depends(get_db)):
     return crud.create_album(db, album = album)
 
