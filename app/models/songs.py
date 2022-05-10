@@ -19,6 +19,7 @@ class Song(Base):
     genre_id = Column(Integer, ForeignKey("genres.id"))
     genre = relationship("Genre", back_populates = "songs")
 
+    subscription = Column(Integer)
     blocked = Column(Boolean)
 
     file_uri = Column(String)

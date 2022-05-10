@@ -15,11 +15,15 @@ router = APIRouter(
 
 
 @router.get("/", response_model = list[schemas.Album])
-def get_albums(skip: int = 0, limit: int = 100, artist_id: str = None,
+def get_albums(skip: int = 0, limit: int = 100,
+               artist_id: str = None, subscription: int = None,
                db: Session = Depends(get_db)):
     filters = {}
     if artist_id:
         filters["artist_id"] = artist_id
+    if subscription:
+        filters["subscription"] = subscription
+
     albums = crud.get_albums(db, skip = skip, limit = limit,
                              filters = filters)
     return albums

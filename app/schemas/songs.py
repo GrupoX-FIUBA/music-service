@@ -7,6 +7,7 @@ class SongBase(BaseModel):
     title: str
     description: Optional[str]
 
+    subscription: int
     file_uri: str
 
 
@@ -21,6 +22,7 @@ class SongUpdate(SongBase):
     title: Optional[str]
     album_id: Optional[int]
     genre_id: Optional[int]
+    subscription: Optional[int]
     blocked: Optional[bool]
     file_uri: Optional[str]
 
