@@ -3,24 +3,26 @@ from typing import Optional
 from pydantic import BaseModel
 
 from .songs import Song
+from .albums import Album
 
 
-class PlaylistBase(BaseModel):
+class GenreBase(BaseModel):
     title: str
 
 
-class PlaylistCreate(PlaylistBase):
-    owner_id: str
+class GenreCreate(GenreBase):
+    pass
 
 
-class PlaylistUpdate(PlaylistBase):
+class GenreUpdate(GenreBase):
     title: Optional[str]
 
 
-class Playlist(PlaylistBase):
+class Genre(GenreBase):
     id: int
-    owner_id: str
+    title: str
     songs: list[Song] = []
+    albums: list[Album] = []
 
     class Config:
         orm_mode = True

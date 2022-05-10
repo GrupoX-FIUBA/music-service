@@ -9,9 +9,12 @@ class Song(Base):
 
     id = Column(Integer, primary_key = True, index = True)
     title = Column(String, index = True)
-    artist_id = Column(Integer)
+    artist_id = Column(String)
 
     album_id = Column(Integer, ForeignKey("albums.id"))
     album = relationship("Album", back_populates = "songs")
+
+    genre_id = Column(Integer, ForeignKey("genres.id"))
+    genre = relationship("Genre", back_populates = "songs")
 
     blocked = Column(Boolean)

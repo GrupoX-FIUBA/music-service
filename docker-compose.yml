@@ -30,6 +30,7 @@ services:
         condition: service_healthy
     volumes:
       - ./app:/code/app
+      - ./alembic/versions:/code/alembic/versions
     profiles:
       - dev
 
@@ -45,6 +46,7 @@ services:
         condition: service_healthy
     volumes:
       - ./app:/code/app
+      - ./alembic/versions:/code/alembic/versions
     profiles:
       - test
 

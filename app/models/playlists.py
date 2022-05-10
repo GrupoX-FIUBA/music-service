@@ -18,6 +18,6 @@ class Playlist(Base):
 
     id = Column(Integer, primary_key = True, index = True)
     title = Column(String, index = True)
-    owner_id = Column(Integer)
+    owner_id = Column(String)
 
     songs = relationship("Song", secondary = song_table)

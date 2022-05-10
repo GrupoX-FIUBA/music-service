@@ -17,7 +17,7 @@ router = APIRouter(
 
 @router.get("/", response_model = list[schemas.Genre])
 def get_genres(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    genres = crud.get_albums(db, skip = skip, limit = limit)
+    genres = crud.get_genres(db, skip = skip, limit = limit)
     return genres
 
 
@@ -30,7 +30,7 @@ def get_genre(genre_id: int, db: Session = Depends(get_db)):
     return genre
 
 
-@router.post("/", response_model = Song)
+@router.post("/", response_model = schemas.Genre)
 def create_genre(genre: schemas.GenreCreate, db: Session = Depends(get_db)):
     return crud.create_genre(db, genre = genre)
 
