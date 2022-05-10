@@ -4,8 +4,13 @@ from app.models import songs as models
 from app.schemas import songs as schemas
 
 
-def get_songs(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Song).offset(skip).limit(limit).all()
+def get_songs(db: Session, skip: int = 0, limit: int = 100,
+              filters: dict = {}):
+    query = db.query(models.Song)
+    if len(filters) > 0:
+        query = query.filter_by(**filters)
+
+    return query.offset(skip).limit(limit).all()
 
 
 def get_song(db: Session, song_id: int):

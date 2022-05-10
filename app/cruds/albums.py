@@ -5,8 +5,13 @@ from app.schemas import albums as schemas
 from app.schemas.songs import Song
 
 
-def get_albums(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Album).offset(skip).limit(limit).all()
+def get_albums(db: Session, skip: int = 0, limit: int = 100,
+               filters: dict = {}):
+    query = db.query(models.Album)
+    if len(filters) > 0:
+        query = query.filter_by(**filters)
+
+    return query.offset(skip).limit(limit).all()
 
 
 def get_album(db: Session, album_id: int):
