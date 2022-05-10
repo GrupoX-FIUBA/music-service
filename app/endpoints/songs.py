@@ -13,8 +13,13 @@ router = APIRouter(
 
 
 @router.get("/", response_model = list[schemas.Song])
-def get_songs(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    songs = crud.get_songs(db, skip = skip, limit = limit)
+def get_songs(skip: int = 0, limit: int = 100, artist_id: str = None,
+              db: Session = Depends(get_db)):
+    filters = {}
+    if artist_id:
+        filters["artist_id"] = artist_id
+
+    songs = crud.get_songs(db, skip = skip, limit = limit, filters = filters)
     return songs
 
 
