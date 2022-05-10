@@ -2,16 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.cruds import songs as crud
-from app.db.session import SessionLocal
 from app.schemas import songs as schemas
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+from .base import get_db
 
 
 router = APIRouter(
@@ -35,7 +27,7 @@ def get_song(song_id: int, db: Session = Depends(get_db)):
     return song
 
 
-@router.post("/", response_model = schemas.Song)
+@router.post("/", response_model = schemas.Song, status_code = 201)
 def create_song(song: schemas.SongCreate, db: Session = Depends(get_db)):
     return crud.create_song(db, song = song)
 

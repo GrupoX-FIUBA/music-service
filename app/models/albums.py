@@ -1,8 +1,9 @@
-from sqlalchemy import Boolean, Column, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
 
 from app.db.base_class import Base
 from .songs import Song  # noqa: F401
+from .genres import Genre  # noqa: F401
 
 
 class Album(Base):
@@ -10,7 +11,13 @@ class Album(Base):
 
     id = Column(Integer, primary_key = True, index = True)
     title = Column(String, index = True)
-    artist_id = Column(Integer)
+    description = Column(Text)
+
+    artist_id = Column(String)
+
+    genre_id = Column(Integer, ForeignKey("genres.id"))
+    genre = relationship("Genre", back_populates = "albums")
+
     blocked = Column(Boolean)
 
     songs = relationship("Song", back_populates = "album")

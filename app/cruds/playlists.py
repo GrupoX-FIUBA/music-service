@@ -15,7 +15,7 @@ def get_playlist(db: Session, playlist_id: int):
 
 
 def create_playlist(db: Session, playlist: schemas.PlaylistCreate):
-    db_playlist = models.Playlist(**playlist.dict())
+    db_playlist = models.Playlist(**playlist.dict(), collaborative = False)
     db.add(db_playlist)
     db.commit()
     db.refresh(db_playlist)

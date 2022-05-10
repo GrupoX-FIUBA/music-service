@@ -2,17 +2,9 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.cruds import playlists as crud
-from app.db.session import SessionLocal
 from app.schemas import playlists as schemas
+from .base import get_db
 from .songs import get_song
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 router = APIRouter(
@@ -57,7 +49,7 @@ def remove_song_from_playlist(playlist_id: int, song_id: int,
     return crud.remove_playlist_song(db, song = song, playlist = playlist)
 
 
-@router.post("/", response_model = schemas.Playlist)
+@router.post("/", response_model = schemas.Playlist, status_code = 201)
 def create_playlist(playlist: schemas.PlaylistCreate,
                     db: Session = Depends(get_db)):
     return crud.create_playlist(db, playlist = playlist)

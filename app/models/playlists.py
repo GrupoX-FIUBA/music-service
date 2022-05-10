@@ -1,4 +1,5 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, Table
+from sqlalchemy import Boolean, Column, ForeignKey,\
+    Integer, String, Table, Text
 from sqlalchemy.orm import relationship
 
 from app.db.base_class import Base
@@ -18,6 +19,9 @@ class Playlist(Base):
 
     id = Column(Integer, primary_key = True, index = True)
     title = Column(String, index = True)
-    owner_id = Column(Integer)
+    description = Column(Text)
+
+    owner_id = Column(String)
+    collaborative = Column(Boolean)
 
     songs = relationship("Song", secondary = song_table)
