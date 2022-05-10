@@ -12,8 +12,7 @@ The app will start at port 8000 as default. You can use a specific port by setti
 
 ### Changes to database models
 
-To create database migrations for changes done in _models_ files, run `alembic revision --autogenerate -m "Title of migration"`.
-You can run it directly from your shell session if you are in a _virtualenv_, or with <code>docker-compose exec development *above-alembic-command*</code> in other case.
+To create database migrations for changes done in _models_ files, run `docker-compose exec development alembic revision --autogenerate -m "Title of migration"`.
 
 To apply changes to existing-running container, you can either restart it (`docker-compose restart`) or run the migrations (`docker-compose exec development alembic upgrade head`).
 
