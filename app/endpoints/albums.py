@@ -18,8 +18,8 @@ router = APIRouter(
 @router.get("/", response_model = list[schemas.Album])
 def get_albums(skip: int = 0, limit: int = 100,
                artist_id: str = None, subscription: int = None,
-                subscription__lt: int = None, subscription__lte: int = None,
-              subscription__gt: int = None, subscription__gte: int = None,
+               subscription__lt: int = None, subscription__lte: int = None,
+               subscription__gt: int = None, subscription__gte: int = None,
                db: Session = Depends(get_db)):
     filters = []
     if artist_id:
