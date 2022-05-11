@@ -6,10 +6,10 @@ from app.schemas.songs import Song
 
 
 def get_albums(db: Session, skip: int = 0, limit: int = 100,
-               filters: dict = {}):
+               filters: list = []):
     query = db.query(models.Album)
     if len(filters) > 0:
-        query = query.filter_by(**filters)
+        query = query.filter(*filters)
 
     return query.offset(skip).limit(limit).all()
 

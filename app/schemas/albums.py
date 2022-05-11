@@ -10,6 +10,7 @@ class AlbumBase(BaseModel):
     description: Optional[str]
 
     genre_id: int
+    subscription: int
 
 
 class AlbumCreate(AlbumBase):
@@ -18,8 +19,10 @@ class AlbumCreate(AlbumBase):
 
 class AlbumUpdate(AlbumBase):
     title: Optional[str]
-
     genre_id: Optional[int]
+
+    subscription: Optional[int]
+    blocked: Optional[bool]
 
 
 class Album(AlbumBase):

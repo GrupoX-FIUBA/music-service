@@ -18,6 +18,7 @@ class Album(Base):
     genre_id = Column(Integer, ForeignKey("genres.id"))
     genre = relationship("Genre", back_populates = "albums")
 
+    subscription = Column(Integer)
     blocked = Column(Boolean)
 
     songs = relationship("Song", back_populates = "album")

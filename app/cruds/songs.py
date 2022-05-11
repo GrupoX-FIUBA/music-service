@@ -5,10 +5,10 @@ from app.schemas import songs as schemas
 
 
 def get_songs(db: Session, skip: int = 0, limit: int = 100,
-              filters: dict = {}):
+              filters: list = []):
     query = db.query(models.Song)
     if len(filters) > 0:
-        query = query.filter_by(**filters)
+        query = query.filter(*filters)
 
     return query.offset(skip).limit(limit).all()
 
