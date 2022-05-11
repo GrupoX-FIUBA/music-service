@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.cruds import albums as crud
+from app.models import albums as models
 from app.schemas import albums as schemas
 from app.schemas.songs import Song
 from .base import get_db
@@ -17,12 +18,22 @@ router = APIRouter(
 @router.get("/", response_model = list[schemas.Album])
 def get_albums(skip: int = 0, limit: int = 100,
                artist_id: str = None, subscription: int = None,
+                subscription__lt: int = None, subscription__lte: int = None,
+              subscription__gt: int = None, subscription__gte: int = None,
                db: Session = Depends(get_db)):
-    filters = {}
+    filters = []
     if artist_id:
-        filters["artist_id"] = artist_id
+        filters += [lambda: models.Album.artist_id == artist_id]
     if subscription:
-        filters["subscription"] = subscription
+        filters += [lambda: models.Album.subscription == subscription]
+    if subscription__lt:
+        filters += [lambda: models.Album.subscription < subscription__lt]
+    if subscription__lte:
+        filters += [lambda: models.Album.subscription <= subscription__lte]
+    if subscription__gt:
+        filters += [lambda: models.Album.subscription > subscription__gt]
+    if subscription__gte:
+        filters += [lambda: models.Album.subscription >= subscription__gte]
 
     albums = crud.get_albums(db, skip = skip, limit = limit,
                              filters = filters)
