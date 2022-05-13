@@ -32,3 +32,31 @@ def get_api_key(
 
     raise HTTPException(status_code = status.HTTP_401_UNAUTHORIZED,
                         detail = "Permission denied")
+
+
+response_codes = {
+    401: {
+        "description": "Unauthorized",
+        "content": {
+            "application/json": {
+                "example": {"detail": "string"}
+            }
+        }
+    },
+    404: {
+        "description": "Not Found",
+        "content": {
+            "application/json": {
+                "example": {"detail": "string"}
+            }
+        }
+    },
+    409: {
+        "description": "Conflict",
+        "content": {
+            "application/json": {
+                "example": {"detail": "string"}
+            }
+        }
+    }
+}
