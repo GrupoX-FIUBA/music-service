@@ -26,7 +26,7 @@ def get_playlist(playlist_id: int, db: Session = Depends(get_db)):
     playlist = crud.get_playlist(db, playlist_id = playlist_id)
     if playlist is None:
         raise HTTPException(status_code = status.HTTP_404_NOT_FOUND,
-                             detail = "Playlist not found")
+                            detail = "Playlist not found")
 
     return playlist
 
@@ -40,7 +40,7 @@ def add_song_to_playlist(playlist_id: int, song_id: int,
 
     if song in playlist.songs:
         raise HTTPException(status_code = status.HTTP_409_CONFLICT,
-                             detail = "The playlist already has that song")
+                            detail = "The playlist already has that song")
 
     return crud.add_playlist_song(db, song = song, playlist = playlist)
 

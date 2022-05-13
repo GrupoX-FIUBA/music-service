@@ -48,7 +48,7 @@ def edit_genre(genre_id: int, genre: schemas.GenreUpdate,
 def remove_genre(genre_id: int, db: Session = Depends(get_db)):
     genre = crud.remove_genre(db, genre_id)
     if genre is None:
-        raise HTTPException(status_code = HTTP_404_NOT_FOUND,
+        raise HTTPException(status_code = status.HTTP_404_NOT_FOUND,
                             detail = "Genre not found")
 
     return genre
