@@ -11,6 +11,7 @@ services:
     environment:
       - PORT=${PORT:-8000}
       - DATABASE_URL
+      - X_API_KEY
     profiles:
       - prod
 

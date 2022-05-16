@@ -21,3 +21,4 @@ jobs:
           usedocker: true
         env:
           HD_COMPOSE_PROFILES: prod
+          HD_X_API_KEY: ${{ secrets.MUSIC_SERVICE_API_KEY }}
