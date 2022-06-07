@@ -22,3 +22,4 @@ jobs:
         env:
           HD_COMPOSE_PROFILES: prod
           HD_X_API_KEY: ${{ secrets.MUSIC_SERVICE_API_KEY }}
+          HD_DD_API_KEY: ${{ secrets.DD_API_KEY }}
