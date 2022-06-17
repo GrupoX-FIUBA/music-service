@@ -18,6 +18,10 @@ def get_album(db: Session, album_id: int):
     return db.query(models.Album).filter(models.Album.id == album_id).first()
 
 
+def album_exists(db: Session, album_id: int):
+    return get_album(db, album_id) is not None
+
+
 def create_album(db: Session, album: schemas.AlbumCreate):
     db_album = models.Album(**album.dict(), blocked = False)
     db.add(db_album)
