@@ -52,7 +52,7 @@ def get_song(song_id: int, db: Session = Depends(get_db)):
 
 @router.post("/", response_model = schemas.Song, status_code = 201)
 def create_song(song: schemas.SongCreate, db: Session = Depends(get_db)):
-    if not album_exists(db, song.album_id):
+    if song.album_id and not album_exists(db, song.album_id):
         raise HTTPException(status_code = status.HTTP_404_NOT_FOUND,
                             detail = "Album doesn't exists")
 
