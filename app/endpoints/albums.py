@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.cruds import albums as crud
+from app.cruds.genres import genre_exists
 from app.models import albums as models
 from app.schemas import albums as schemas
 from app.schemas.songs import Song
@@ -82,6 +83,10 @@ def remove_song_from_album(album_id: int, song_id: int,
 
 @router.post("/", response_model = schemas.Album, status_code = 201)
 def create_album(album: schemas.AlbumCreate, db: Session = Depends(get_db)):
+    if not genre_exists(db, album.genre_id):
+        raise HTTPException(status_code = status.HTTP_404_NOT_FOUND,
+                            detail = "Genre doesn't exists")
+
     return crud.create_album(db, album = album)
 
 
@@ -89,6 +94,10 @@ def create_album(album: schemas.AlbumCreate, db: Session = Depends(get_db)):
               responses = {404: response_codes[404]})
 def edit_album(album_id: int, album: schemas.AlbumUpdate,
                db: Session = Depends(get_db)):
+    if album.genre_id and not genre_exists(db, album.genre_id):
+        raise HTTPException(status_code = status.HTTP_404_NOT_FOUND,
+                            detail = "Genre doesn't exists")
+
     db_album = get_album(album_id, db)
 
     return crud.edit_album(db, album = db_album, updated_album = album)

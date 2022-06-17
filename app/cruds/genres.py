@@ -12,6 +12,10 @@ def get_genre(db: Session, genre_id: int):
     return db.query(models.Genre).filter(models.Genre.id == genre_id).first()
 
 
+def genre_exists(db: Session, genre_id: int):
+    return get_genre(db, genre_id) is not None
+
+
 def create_genre(db: Session, genre: schemas.GenreCreate):
     db_genre = models.Genre(**genre.dict())
     db.add(db_genre)
