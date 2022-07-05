@@ -9,6 +9,11 @@ spec:
   ports:
   - name: "__APP_NAME__"
     port: 8080
+  - name: "datadog-tcp"
+    port: 8126
+  - name: "datadog-udp"
+    port: 8125
+    protocol: "UDP"
   selector:
     app: __APP_NAME__
 ---
@@ -45,3 +50,17 @@ spec:
           value: "8080"
         - name: X_API_KEY
           value: "__API_KEY__"
+        - name: DD_API_KEY
+          value: "__DD_API_KEY__"
+        - name: DD_SITE
+          value: "datadoghq.com"
+        - name: DD_DYNO_HOST
+          value: "true"
+        - name: DD_APM_ENABLED
+          value: "true"
+        - name: DD_DOGSTATSD_NON_LOCAL_TRAFFIC
+          value: "true"
+        - name: DD_LOGS_ENABLED
+          value: "true"
+        - name: DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL
+          value: "true"
