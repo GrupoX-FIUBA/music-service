@@ -2,6 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.cruds import songs as crud
+from app.cruds.albums import album_exists
+from app.cruds.genres import genre_exists
 from app.models import songs as models
 from app.schemas import songs as schemas
 from .base import get_db, response_codes
@@ -50,6 +52,14 @@ def get_song(song_id: int, db: Session = Depends(get_db)):
 
 @router.post("/", response_model = schemas.Song, status_code = 201)
 def create_song(song: schemas.SongCreate, db: Session = Depends(get_db)):
+    if song.album_id and not album_exists(db, song.album_id):
+        raise HTTPException(status_code = status.HTTP_404_NOT_FOUND,
+                            detail = "Album doesn't exists")
+
+    if not genre_exists(db, song.genre_id):
+        raise HTTPException(status_code = status.HTTP_404_NOT_FOUND,
+                            detail = "Genre doesn't exists")
+
     return crud.create_song(db, song = song)
 
 
@@ -57,6 +67,14 @@ def create_song(song: schemas.SongCreate, db: Session = Depends(get_db)):
               responses = {404: response_codes[404]})
 def edit_song(song_id: int, song: schemas.SongUpdate,
               db: Session = Depends(get_db)):
+    if song.album_id and not album_exists(db, song.album_id):
+        raise HTTPException(status_code = status.HTTP_404_NOT_FOUND,
+                            detail = "Album doesn't exists")
+
+    if song.genre_id and not genre_exists(db, song.genre_id):
+        raise HTTPException(status_code = status.HTTP_404_NOT_FOUND,
+                            detail = "Genre doesn't exists")
+
     db_song = get_song(song_id, db)
 
     return crud.edit_song(db, song = db_song, updated_song = song)
