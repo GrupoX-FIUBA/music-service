@@ -52,6 +52,7 @@ jobs:
           APP_NAME: ${{ secrets.APP_NAME }}
           IMAGE_TAG: ${{ github.sha }}
           API_KEY: ${{ secrets.MUSIC_SERVICE_API_KEY }}
+          DD_API_KEY: ${{ secrets.DD_API_KEY }}
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
           DB_NAME: "musicdb"  # or ${{ secrets.DB_NAME }}
