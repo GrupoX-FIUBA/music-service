@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/GrupoX-FIUBA/music-service/branch/main/graph/badge.svg?token=VXS3E2BKR7)](https://codecov.io/gh/GrupoX-FIUBA/music-service)
+
 # Music Microservice
 
 This microservice manages the music related topics (songs, albums, playlists).
